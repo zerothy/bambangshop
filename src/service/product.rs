@@ -2,7 +2,6 @@ use rocket::http::Status;
 use rocket::serde::json::Json;
 
 use bambangshop::{Result, compose_error_response};
-use crate::controller::product;
 use crate::model::product::Product;
 use crate::repository::product::ProductRepository;
 use crate::service::notification::NotificationService;

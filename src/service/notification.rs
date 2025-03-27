@@ -7,8 +7,6 @@ use crate::model::product::Product;
 use crate::model::subscriber::Subscriber;
 use crate::repository::subscriber::SubscriberRepository;
 
-use super::product;
-
 pub struct NotificationService;
 
 impl NotificationService {
@@ -43,6 +41,7 @@ impl NotificationService {
 
         let subscribers: Vec<Subscriber> = SubscriberRepository::list_all(product_type);
         for subscriber in subscribers {
+            println!("masukkkk");
             payload.subscriber_name = subscriber.clone().name;
             let subscriber_clone = subscriber.clone();
             let payload_clone = payload.clone();
