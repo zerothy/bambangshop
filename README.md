@@ -32,7 +32,7 @@ The subscribers are another Rocket instances, so the notification will be sent u
     -   [✓] Commit: `Implement add function in Subscriber repository.`
     -   [✓] Commit: `Implement list_all function in Subscriber repository.`
     -   [✓] Commit: `Implement delete function in Subscriber repository.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
+    -   [✓] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
     -   [ ] Commit: `Create Notification service struct skeleton.`
     -   [ ] Commit: `Implement subscribe function in Notification service.`
