@@ -50,12 +50,12 @@ You can install Postman via this website: https://www.postman.com/downloads/
 ## Mandatory Checklists (Publisher)
 -   [✓] Clone https://gitlab.com/ichlaffterlalu/bambangshop to a new repository.
 -   **STAGE 1: Implement models and repositories**
-    -   [ ] Commit: `Create Subscriber model struct.`
-    -   [ ] Commit: `Create Notification model struct.`
-    -   [ ] Commit: `Create Subscriber database and Subscriber repository struct skeleton.`
-    -   [ ] Commit: `Implement add function in Subscriber repository.`
-    -   [ ] Commit: `Implement list_all function in Subscriber repository.`
-    -   [ ] Commit: `Implement delete function in Subscriber repository.`
+    -   [✓] Commit: `Create Subscriber model struct.`
+    -   [✓] Commit: `Create Notification model struct.`
+    -   [✓] Commit: `Create Subscriber database and Subscriber repository struct skeleton.`
+    -   [✓] Commit: `Implement add function in Subscriber repository.`
+    -   [✓] Commit: `Implement list_all function in Subscriber repository.`
+    -   [✓] Commit: `Implement delete function in Subscriber repository.`
     -   [ ] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
     -   [ ] Commit: `Create Notification service struct skeleton.`
@@ -77,6 +77,26 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+
+1. In the Observer pattern as explained in Head First Design Patterns, the Observer (Subscriber) is typically defined as an interface. In the BambangShop case, we could use a trait in Rust to define the behavior expected of subscribers, particularly an `update` method that gets called when notifications need to be sent. However, in this specific implementation, a single Model struct is sufficient, because
+   - The behavior of all subscribers is uniform. They all receive HTTP POST requests
+   - We are using a concrete implementation rather than multiple subscriber types
+   - The notification sending logic can be implemented directly in the Subscriber model
+   - Rust&apos;s trait system would be valuable if we had multiple types of subscribers with different notification handling mechanisms
+
+2. Using DashMap rather than Vec (list) is necessary for this case, because
+   - We need to efficiently lookup subscribers by their unique identifiers (url)
+   - DashMap provides O(1) lookup operations compared to O(n) for Vec
+   - When adding or removing subscribers, we need to check for duplicates quickly
+   - The repository pattern benefits from having fast key-based access
+   - The implementation needs to maintain uniqueness guarantees that are more efficiently handled with maps
+
+3. The use of DashMap with lazy_static for the SUBSCRIBERS variable is a good approach, because
+   - It combines aspects of the Singleton pattern (ensuring a single instance) with thread safety
+   - DashMap specifically provides interior mutability that is thread-safe, which is necessary in a web server context where multiple threads access the same data
+   - While we could implement a custom Singleton pattern, DashMap already provides the thread-safety guarantees we need
+   - Rust&apos;s ownership system and compiler constraints lead us to solutions like DashMap that handle concurrency concerns at compile time
+   - The lazy_static macro ensures the singleton is initialized only when first accessed
 
 #### Reflection Publisher-2
 
